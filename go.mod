@@ -8,7 +8,7 @@ replace (
 )
 
 require (
-	cosmossdk.io/api v0.3.1
+	cosmossdk.io/api v0.3.1 // indirect
 	github.com/InjectiveLabs/sdk-go v1.48.17
 	github.com/cometbft/cometbft v0.38.2
 	github.com/cosmos/cosmos-sdk v0.47.3

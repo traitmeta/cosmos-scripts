@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 
-	"cosmossdk.io/api/cosmos/crypto/secp256k1"
 	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/cosmos/btcutil/bech32"
 	"github.com/cosmos/cosmos-sdk/crypto/hd"
@@ -37,9 +36,9 @@ func getSeedFromMnemonic(mnemonic string) (string, error) {
 	return hex.EncodeToString(seed), nil
 }
 
-func getAddressFromPrivKey(privKey secp256k1.PrivKey) (sdk.AccAddress, error) {
-	return sdk.AccAddress(privKey.PubKey().Address()), nil
-}
+// func getAddressFromPrivKey(privKey secp256k1.PrivKey) (sdk.AccAddress, error) {
+// 	return sdk.AccAddress(privKey.PubKey().Address()), nil
+// }
 
 func GetPrivKeyFromMnemonic() {
 
