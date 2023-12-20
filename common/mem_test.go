@@ -19,9 +19,9 @@ func Test_getPrivKeyFromMnemonic(t *testing.T) {
 		{
 			name: "test mem to priv",
 			args: args{
-				mnemonic: "blast about old claw current first paste risk involve victory edit current",
+				mnemonic: "delay wall sentence supreme sunny fat cream write polar claw candy exile",
 			},
-			want:    "69668f2378b43009b16b5c6eb5e405d9224ca2a326a65a17919e567105fa4e5a",
+			want:    "1a592f33fd5fd80528722f0f84dd93dcf10409d85f1e3a94f17a4309fafd6cc1",
 			wantErr: false,
 		},
 	}
@@ -33,7 +33,7 @@ func Test_getPrivKeyFromMnemonic(t *testing.T) {
 				return
 			}
 			if !reflect.DeepEqual(hex.EncodeToString(got), tt.want) {
-				t.Errorf("getPrivKeyFromMnemonic() = %v, want %v", got, tt.want)
+				t.Errorf("getPrivKeyFromMnemonic() = %v, want %v", hex.EncodeToString(got), tt.want)
 			}
 		})
 	}
@@ -52,9 +52,9 @@ func Test_getSeedFromMnemonic(t *testing.T) {
 		{
 			name: "test get seed",
 			args: args{
-				mnemonic: "blast about old claw current first paste risk involve victory edit current",
+				mnemonic: "delay wall sentence supreme sunny fat cream write polar claw candy exile",
 			},
-			want:    "dd5ffa7088c0fa4c665085bca7096a61e42ba92e7243a8ad7fbc6975a4aeea1845c6b668ebacd024fd2ca215c6cd510be7a9815528016af3a5e6f47d1cca30dd",
+			want:    "9d4023a00ffba730e3b4c214bb03ee6ec9d7d3f107460be0a1e2b21fadadf0c39099c0bbb3d6b78c5c72a4fc95ca860fa7570efa99b079c5972412391a19e6fa",
 			wantErr: false,
 		},
 	}
