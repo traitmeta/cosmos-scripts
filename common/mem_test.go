@@ -71,3 +71,33 @@ func Test_getSeedFromMnemonic(t *testing.T) {
 		})
 	}
 }
+
+func TestGetPubKeyFromPriv(t *testing.T) {
+	type args struct {
+		priv string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: "get pub from priv",
+			args: args{
+				priv: "1a592f33fd5fd80528722f0f84dd93dcf10409d85f1e3a94f17a4309fafd6cc1",
+			},
+			want: "02b4f45c20062a78df017e7412012d38a0dde9b6da3bbf66a07c55789e855d14c6",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			priv, err := hex.DecodeString(tt.args.priv)
+			if err != nil {
+				t.Errorf("GetPubKeyFromPriv() err = %v", err)
+			}
+			if got := GetPubKeyFromPriv(priv); !reflect.DeepEqual(hex.EncodeToString(got), tt.want) {
+				t.Errorf("GetPubKeyFromPriv() = %v, want %v", hex.EncodeToString(got), tt.want)
+			}
+		})
+	}
+}

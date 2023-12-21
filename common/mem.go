@@ -40,20 +40,14 @@ func getSeedFromMnemonic(mnemonic string) (string, error) {
 // 	return sdk.AccAddress(privKey.PubKey().Address()), nil
 // }
 
-func GetPrivKeyFromMnemonic() {
+func GetPubKeyFromPriv(priv []byte) []byte {
+	_, ecPub := btcec.PrivKeyFromBytes(priv[:])
+	pubkeyBytes := ecPub.SerializeCompressed()
 
-	seed := bip39.NewSeed("blast about old claw current first paste risk involve victory edit current", "")
-	fmt.Println("Seed: ", hex.EncodeToString(seed)) // Seed:  dd5ffa7088c0fa4c665085bca7096a61e42ba92e7243a8ad7fbc6975a4aeea1845c6b668ebacd024fd2ca215c6cd510be7a9815528016af3a5e6f47d1cca30dd
+	return pubkeyBytes
+}
 
-	master, ch := hd.ComputeMastersFromSeed(seed)
-	path := "m/44'/118'/0'/0/0'"
-	priv, err := hd.DerivePrivateKeyForPath(master, ch, path)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Derivation Path: ", path)                 // Derivation Path:  m/44'/118'/0'/0/0'
-	fmt.Println("Private Key: ", hex.EncodeToString(priv)) // Private Key:  69668f2378b43009b16b5c6eb5e405d9224ca2a326a65a17919e567105fa4e5a
-
+func GetAddrFromPriv(priv []byte) {
 	_, ecPub := btcec.PrivKeyFromBytes(priv[:])
 	pubkeyBytes := ecPub.SerializeCompressed()
 	fmt.Println("Public Key: ", hex.EncodeToString(pubkeyBytes)) // Public Key:  03de79435cbc8a799efc24cdce7d3b180fb014d5f19949fb8d61de3f21b9f6c1f8
