@@ -3,7 +3,6 @@ package common
 import (
 	"encoding/hex"
 	"fmt"
-	"log"
 
 	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/cosmos/btcutil/bech32"
@@ -47,26 +46,22 @@ func GetPubKeyFromPriv(priv []byte) []byte {
 	return pubkeyBytes
 }
 
-func GetAddrFromPriv(priv []byte) {
-	_, ecPub := btcec.PrivKeyFromBytes(priv[:])
-	pubkeyBytes := ecPub.SerializeCompressed()
-	fmt.Println("Public Key: ", hex.EncodeToString(pubkeyBytes)) // Public Key:  03de79435cbc8a799efc24cdce7d3b180fb014d5f19949fb8d61de3f21b9f6c1f8
-
+func GetAddrFromPriv(priv []byte) (string, error) {
+	pubkeyBytes := GetPubKeyFromPriv(priv)
 	decodeString, err := hex.DecodeString(fmt.Sprintf("04%x", pubkeyBytes))
 	if err != nil {
-		log.Fatal(err)
+		return "", err
 	}
 
 	// Convert test data to base32:
 	conv, err := bech32.ConvertBits(decodeString, 8, 5, true)
 	if err != nil {
-		fmt.Println("Error:", err)
+		return "", err
 	}
 	encoded, err := bech32.Encode("atom", conv)
 	if err != nil {
-		fmt.Println("Error:", err)
+		return "", err
 	}
 
-	// Show the encoded data.
-	fmt.Println("Wallet Address:", encoded) // Wallet Address: atom1qspau72rtj7g57v7lsjvmnna8vvqlvq56hcejj0m34sau0eph8mvr7qgl9avu
+	return encoded, nil
 }

@@ -101,3 +101,40 @@ func TestGetPubKeyFromPriv(t *testing.T) {
 		})
 	}
 }
+
+func TestGetAddrFromPriv(t *testing.T) {
+	type args struct {
+		priv string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    string
+		wantErr bool
+	}{
+		{
+			name: "get address from priv",
+			args: args{
+				priv: "1a592f33fd5fd80528722f0f84dd93dcf10409d85f1e3a94f17a4309fafd6cc1",
+			},
+			want:    "atom1qsptfazuyqrz57xlq9l8gysp95u2ph0fkmdrh0mx5p7927y7s4w3f3s0gssd5",
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			priv, err := hex.DecodeString(tt.args.priv)
+			if err != nil {
+				t.Errorf("GetPubKeyFromPriv() err = %v", err)
+			}
+			got, err := GetAddrFromPriv(priv)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetAddrFromPriv() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("GetAddrFromPriv() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
